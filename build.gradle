@@ -1,0 +1,115 @@
+buildscript {
+    repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: true
+    }
+}
+        
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
+
+version = mod_version
+group = 'yeelp.${mod_id}' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = mod_id
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+
+minecraft {
+    mappings channel: mappings_channel, version: mappings_version
+    
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+
+        server {
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
+}
+
+sourceSets.main.java.srcDirs += 'java'
+
+repositories {
+    maven { url = 'https://www.cursemaven.com' }
+    mavenCentral()
+}
+
+dependencies {
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+}
+
+processResources {
+    var replaceProperties = [
+        'mod_id': mod_id,
+        'mod_name': mod_name,
+        'version': mod_version,
+        'mcversion': minecraft_version,
+        'mod_description': mod_description,
+        'mod_author_list': mod_author_list
+    ]
+    
+    inputs.properties replaceProperties
+    
+    filesMatching('mcmod.info') {
+        expand replaceProperties
+    }
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+task processSources(type: Sync) {
+    from sourceSets.main.java
+    inputs.property 'version', project.version
+    filter(ReplaceTokens, tokens:[version: version.toString()])
+    into 'build/src'
+}
+
+compileJava {
+    source = processSources.outputs
+}
+
+java {
+    withSourcesJar()
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": mod_name,
+            "Specification-Vendor": mod_author,
+            "Specification-Version": "1",
+            "Implementation-Title": mod_name,
+            "Implementation-Version": mod_version,
+            "Implementation-Vendor" : mod_author,
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+// Example configuration to allow publishing using the maven-publish task
+// This is the preferred method to reobfuscate your jar file
+jar.finalizedBy('reobfJar') 
+// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing
+//publish.dependsOn('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
