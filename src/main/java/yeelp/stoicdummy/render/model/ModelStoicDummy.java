@@ -7,6 +7,11 @@ import net.minecraft.entity.Entity;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+/**
+ * Generated with BlockBench <3
+ * @author Yeelp
+ *
+ */
 @SideOnly(Side.CLIENT)
 public final class ModelStoicDummy extends ModelBase {
 	private final ModelRenderer stand;
