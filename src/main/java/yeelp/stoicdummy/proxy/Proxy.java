@@ -14,7 +14,7 @@ public class Proxy {
 	public void preInit() {
 		dummyItem = new StoicDummyItem();
 		ForgeRegistries.ITEMS.register(dummyItem);
-		EntityRegistry.registerModEntity(EntityStoicDummy.LOC, EntityStoicDummy.class, "stoicdummy.stoicdummy", 0, StoicDummy.instance, 0, 1, true);
+		EntityRegistry.registerModEntity(EntityStoicDummy.LOC, EntityStoicDummy.class, "stoicdummy.stoicdummy", 0, StoicDummy.instance, 512, 1, true);
 	}
 	
 	public void init() {

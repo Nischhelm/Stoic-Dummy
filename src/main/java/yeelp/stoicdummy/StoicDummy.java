@@ -1,12 +1,15 @@
 package yeelp.stoicdummy;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import yeelp.stoicdummy.entity.EntityStoicDummy;
 import yeelp.stoicdummy.proxy.Proxy;
 
 @Mod(modid = ModConsts.MODID, name = ModConsts.NAME, version = ModConsts.VERSION)
@@ -23,12 +26,15 @@ public final class StoicDummy {
 	public void preInit(FMLPreInitializationEvent event) {
 		SDLogger.init(event.getModLog());
 		SDLogger.info("Stoic Dummy is version: {}", ModConsts.VERSION);
+		SDLogger.debug("debug mode enabled");
 		proxy.preInit();
 	}
 
 	@SuppressWarnings("static-method")
 	@EventHandler
 	public void init(@SuppressWarnings("unused") FMLInitializationEvent event) {
+		RenderManager manager = Minecraft.getMinecraft().getRenderManager();
+		SDLogger.debug("Current Dummy Renderer: key: {}, value: {}", EntityStoicDummy.class, manager.entityRenderMap.get(EntityStoicDummy.class));
 		proxy.init();
 	}
 	

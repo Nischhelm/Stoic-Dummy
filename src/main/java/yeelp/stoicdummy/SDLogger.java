@@ -26,6 +26,12 @@ public final class SDLogger {
 		}
 	}
 	
+	public static void debug(String msg, Object...objects) { 
+		if(ModConfig.debug) {
+			info(msg, objects);
+		}
+	}
+	
 	public static void info(String msg) {
 		logger.info(msg);
 	}
