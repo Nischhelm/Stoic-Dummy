@@ -33,8 +33,6 @@ public final class StoicDummy {
 	@SuppressWarnings("static-method")
 	@EventHandler
 	public void init(@SuppressWarnings("unused") FMLInitializationEvent event) {
-		RenderManager manager = Minecraft.getMinecraft().getRenderManager();
-		SDLogger.debug("Current Dummy Renderer: key: {}, value: {}", EntityStoicDummy.class, manager.entityRenderMap.get(EntityStoicDummy.class));
 		proxy.init();
 	}
 	

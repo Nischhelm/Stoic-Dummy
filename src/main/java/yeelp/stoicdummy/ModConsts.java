@@ -8,4 +8,8 @@ public interface ModConsts {
 	String CLIENT_PROXY = "yeelp.stoicdummy.proxy.ClientProxy";
 	String SERVER_PROXY = "yeelp.stoicdummy.proxy.Proxy";
 
+	public interface DummyNBT {
+		String HAND = "righthanded";
+		String ROTATION = "rotation";
+	}
 }

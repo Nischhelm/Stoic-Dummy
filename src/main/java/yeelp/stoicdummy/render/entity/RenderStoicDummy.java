@@ -41,6 +41,11 @@ public final class RenderStoicDummy extends RenderLivingBase<EntityStoicDummy> {
 		super(manager, new ModelStoicDummy(), 0.5f);
 		this.addLayer(this.new LayerDummyFace(this));
 	}
+	
+	@Override
+	protected boolean canRenderName(EntityStoicDummy entity) {
+		return super.canRenderName(entity) && entity.hasCustomName();
+	}
 
 	@Override
 	protected ResourceLocation getEntityTexture(EntityStoicDummy entity) {

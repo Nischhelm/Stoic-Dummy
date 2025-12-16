@@ -26,7 +26,8 @@ public final class StoicDummyItem extends Item {
 	
 	private static final String ID = "stoicdummyitem";
 	private static final ITextComponent INFO = new TextComponentTranslation("tooltips.stoicdummy.info");	
-
+	private static final int ROTATION_INCREMENT = 45;
+	
 	public StoicDummyItem() {
 		this.setRegistryName(ID);
 		this.setTranslationKey(String.format("%s.%s", ModConsts.MODID, ID));
@@ -64,9 +65,9 @@ public final class StoicDummyItem extends Item {
 		if(!worldIn.isRemote) {
 			worldIn.setBlockToAir(spawnPos);
 			worldIn.setBlockToAir(above);
-			EntityStoicDummy dummy = new EntityStoicDummy(worldIn, player);
+			int rotation = MathHelper.floor((MathHelper.wrapDegrees(player.rotationYaw - 180.0f) + ROTATION_INCREMENT/2.0f) / ROTATION_INCREMENT) * ROTATION_INCREMENT;
+			EntityStoicDummy dummy = new EntityStoicDummy(worldIn, player, rotation);
 			dummy.setPosition(x + 0.5, y, z + 0.5);
-			dummy.setLocationAndAngles(x + 0.5, y, z + 0.5, MathHelper.floor((MathHelper.wrapDegrees(player.rotationYaw - 180.0f) + 22.5f) / 45.0f) * 45.0f, 0.0f);
 			ItemMonsterPlacer.applyItemEntityDataToEntity(worldIn, player, stack, dummy);
 			worldIn.spawnEntity(dummy);
 			worldIn.playSound(null, dummy.posX, dummy.posY, dummy.posZ, SoundEvents.ENTITY_ARMORSTAND_PLACE, SoundCategory.BLOCKS, 0.75f, 0.8f);
