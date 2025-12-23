@@ -4,3 +4,9 @@ entity.stoicdummy.stoicdummy.name=Stoic Dummy
 item.stoicdummy.stoicdummyitem.name=Stoic Dummy
 
 tooltips.stoicdummy.info=Interact while Sneaking with empty hand to pick up!
+
+history.stoicdummy.attacker=Attacker:
+history.stoicdummy.trueAttacker=True Attacker:
+history.stoicdummy.source=Source:
+history.stoicdummy.damageDealt=Initial Damage Dealt:
+history.stoicdummy.damageTaken=Final Damage Taken:

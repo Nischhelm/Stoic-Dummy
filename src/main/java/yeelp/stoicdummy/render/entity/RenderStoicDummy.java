@@ -44,7 +44,7 @@ public final class RenderStoicDummy extends RenderLivingBase<EntityStoicDummy> {
 	
 	@Override
 	protected boolean canRenderName(EntityStoicDummy entity) {
-		return super.canRenderName(entity) && entity.hasCustomName();
+		return super.canRenderName(entity) && (entity.getAlwaysRenderNameTagForRender() || (entity.hasCustomName() && this.renderManager.pointedEntity == entity));
 	}
 
 	@Override

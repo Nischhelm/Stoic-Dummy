@@ -44,8 +44,16 @@ public final class SDLogger {
 		logger.warn(msg);
 	}
 	
+	public static void warn(String msg, Object...objects) {
+		logger.warn(msg, objects);
+	}
+	
 	public static void err(String msg) {
 		logger.error(msg);
+	}
+	
+	public static void err(String msg, Object...objects) {
+		logger.error(msg, objects);
 	}
 	
 	public static void fatal(String msg) {
